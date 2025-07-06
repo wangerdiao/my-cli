@@ -2,6 +2,10 @@ import { input,select } from '@inquirer/prompts' //终端交互库
 import { clone } from '../utils/clone'
 import fs from 'fs-extra'; //读取文件
 import path from 'path';    
+import { gt } from 'lodash';
+import chalk from 'chalk';
+import axios, { AxiosResponse } from 'axios';
+import { name, version } from '../../package.json';
 export interface TemplateInfo {
     name: string; // 模板名称
     downloadUrl: string; // 模板下载地址
@@ -42,6 +46,39 @@ export function isOverwrite(fileName: string) {
     });
 }
 
+//检查包的版本是否是最新的
+export const getNpmInfo = async (npmName: string) => {
+    const npmUrl = `https://registry.npmjs.org/${name}`;
+    let res = {};
+    try {
+        res = await axios.get(npmUrl);
+    } catch (error) {
+        console.error(error);
+    }
+    return res;
+};
+export const getNpmLatestVersion = async (name: string) => {
+    const { data } = (await getNpmInfo(name)) as AxiosResponse;
+    return data['dist-tags'].latest;
+};
+
+export const checkVersion = async (name: string, version: string) => {
+    const latestVersion = await getNpmLatestVersion(name);
+    const need = gt(latestVersion, version);
+    if (need) {
+        console.warn(
+            `检查到dawei最新版本： ${chalk.blackBright(latestVersion)}，当前版本是：${chalk.blackBright(version)}`
+        );
+        console.log(
+            `可使用： ${chalk.yellow('npm install dawei-cli@latest')}，或者使用：${chalk.yellow('wangderful-cli update')}更新`
+        );
+    }else {
+        console.log(chalk.yellow('当前版本为最新版本的包'));
+        
+    }
+    return need;
+};
+
 export async function create(projectName:string) {
     // 初始化模板列表
     const templateList = Array.from(templates).map((item: [string, TemplateInfo]) => {
@@ -66,6 +103,9 @@ export async function create(projectName:string) {
             return; // 不覆盖直接结束
         }
     }
+
+     // 检查版本更新
+    await checkVersion(name, version);
 
      const templateName = await select({
         message: '请选择模板',
