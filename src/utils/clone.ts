@@ -1,7 +1,7 @@
 
 import simpleGit, {SimpleGit, SimpleGitOptions} from 'simple-git';  //拉取git地址的库
 import createLogger from 'progress-estimator'; //下载进度条
-const chalk = require('chalk'); //改变终端颜色字体的库
+import chalk from 'chalk'; //改变终端颜色字体的库
 // 初始化进度条
 const logger = createLogger({
     spinner: {
