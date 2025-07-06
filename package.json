@@ -15,7 +15,7 @@
     ],
     "author": "wangderful",
     "bin": {
-        "dawei": "bin/index.js"
+        "wangderful-cli": "bin/index.js"
     },
     "files": [
         "dist",
