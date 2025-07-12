@@ -1,6 +1,6 @@
 {
     "name": "wangderful-cli",
-    "version": "0.0.3",
+    "version": "0.1.0",
     "description": "my-cli 脚手架",
     "main": "index.js",
     "scripts": {
