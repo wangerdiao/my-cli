@@ -70,7 +70,7 @@ export const checkVersion = async (name: string, version: string) => {
             `检查到wangderful-cli最新版本： ${chalk.blackBright(latestVersion)}，当前版本是：${chalk.blackBright(version)}`
         );
         console.log(
-            `可使用： ${chalk.yellow('npm install dawei-cli@latest')}，或者使用：${chalk.yellow('wangderful-cli update')}更新`
+            `可使用： ${chalk.yellow('npm install wangderful-cli@latest')}，或者使用：${chalk.yellow('wangderful-cli update')}更新`
         );
     }else {
         console.log(chalk.yellow('当前版本为最新版本的包'));

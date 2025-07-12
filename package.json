@@ -38,7 +38,7 @@
         "figlet": "^1.7.0",
         "fs-extra": "^11.3.0",
         "lodash": "^4.17.21",
-        "log-symbols": "4.1.0",
+        "log-symbols": "^4.1.0",
         "ora": "5",
         "progress-estimator": "^0.3.1",
         "rollup": "^4.6.1",
